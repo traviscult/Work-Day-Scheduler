@@ -13,7 +13,7 @@ function showDateAndTime(currentDateAndTime) {
 $(document).ready(function () {
   changeColor();
   saveText();
-  //update clock every second.
+  //update clock every second without refreshing.
   function clock() {
     $("#currentDay").html(moment().format('dddd, MMMM Do YYYY, h:mm:ss A'));
   }
@@ -24,18 +24,18 @@ $(document).ready(function () {
 // set class attributes to time blocks based on the current time 
 function changeColor() {
 
-  let realTime = moment().hours();
-  console.log("Current Time" + realTime);
-
+  let actualTime = moment().hours();
+  console.log("Current Time" + actualTime);
+  
   $(".input").each(function () {
     var timeTest = parseInt($(this).attr("id"));
     console.log(timeTest);
 
-    if (realTime > timeTest) {
+    if (actualTime > timeTest) {
       $(this).removeClass("future");
       $(this).removeClass("present");
       $(this).addClass("past");
-    } else if (realTime < timeTest) {
+    } else if (actualTime < timeTest) {
       $(this).removeClass("present");
       $(this).removeClass("past");
       $(this).addClass("future");
@@ -50,6 +50,7 @@ function changeColor() {
 //save button funtion for the time blocks
 $(".saveBtn").click(function () {
   textInput = $(this).siblings(".input").val();
+  console.log("this", this)
   console.log(textInput);
   hour = $(this).siblings(".hour").text();
   console.log(hour);
